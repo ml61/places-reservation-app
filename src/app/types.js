@@ -1,1 +1,3 @@
 export const GET_SEATS = "GET_SEATS";
+export const SUBMIT_FORM = "SUBMIT_FORM";
+export const SET_PLACES_TO_RESERVATION = "SET_PLACES_TO_RESERVATION";
