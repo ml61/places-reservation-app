@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+
+import { getAllSeats } from "../app/actions";
 
 function WelcomePage() {
-  const getDogs = async () => {
-    const res = await axios.get("http://localhost:3000/seats");
-    const { data } = res;
-
-    console.log(data);
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getDogs();
+    dispatch(getAllSeats());
   }, []);
 
   return <div>WelcomePage</div>;
