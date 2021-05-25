@@ -1,6 +1,12 @@
-import { GET_SEATS } from "../types";
-import { SUBMIT_FORM } from "../types";
-import { SET_PLACES_TO_RESERVATION } from "../types";
+import {
+  GET_SEATS,
+  SUBMIT_FORM,
+  SET_PLACES_TO_RESERVATION,
+  NORMALIZED_HALL_SCHEME,
+} from "../types";
+
+import { makeNormalizedHallScheme } from "../../features/helperFunctions";
+
 import axios from "axios";
 
 export const getAllSeats = () => async (dispatch) => {
@@ -8,6 +14,10 @@ export const getAllSeats = () => async (dispatch) => {
     const res = await axios.get("http://localhost:3001/seats");
     const { data } = res;
     dispatch({ type: GET_SEATS, payload: data });
+    dispatch({
+      type: NORMALIZED_HALL_SCHEME,
+      payload: makeNormalizedHallScheme(data),
+    });
   } catch (err) {
     console.log(err);
   }
