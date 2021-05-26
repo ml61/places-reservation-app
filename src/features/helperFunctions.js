@@ -1,29 +1,35 @@
-export const areThereAnyFreePlaces = (allSeats) => {
-  return allSeats.filter((seat) => !seat.reserved) ? true : false;
+export const isHallFull = (allSeats) => {
+  return allSeats.filter((seat) => !seat.reserved) ? false : true;
 };
 export const setAnyPlaces = (allSeats, reservationPlacesQuantity) => {
   return allSeats
     .filter((seat) => !seat.reserved)
     .slice(0, reservationPlacesQuantity)
-    .map((seat) => seat.id);
+    .map((seat) => ({ id: seat.id, cords: seat.cords }));
 };
 export const setPlacesNextToEachOther = (
   allSeats,
   reservationPlacesQuantity
 ) => {
-  const indexOfFirstFreePlace = allSeats.findIndex((seat) => !seat.reserved);
-  let defaultPlacesNextToEachOther = [allSeats[indexOfFirstFreePlace]];
-  for (let i = indexOfFirstFreePlace + 1; i < allSeats.length; i++) {
+  const freePlaces = allSeats.filter((seat) => !seat.reserved);
+  let defaultPlacesNextToEachOther = [
+    { id: freePlaces[0].id, cords: freePlaces[0].cords },
+  ];
+  for (let i = 1; i < freePlaces.length; i++) {
     if (defaultPlacesNextToEachOther.length === reservationPlacesQuantity)
       break;
     if (
-      allSeats[i].cords.x === allSeats[i - 1].cords.x &&
-      allSeats[i].cords.y === allSeats[i - 1].cords.y + 1 &&
-      !allSeats[i].reserved
+      freePlaces[i].cords.x === freePlaces[i - 1].cords.x &&
+      freePlaces[i].cords.y === freePlaces[i - 1].cords.y + 1
     ) {
-      defaultPlacesNextToEachOther.push(allSeats[i].id);
+      defaultPlacesNextToEachOther.push({
+        id: freePlaces[i].id,
+        cords: freePlaces[i].cords,
+      });
     } else {
-      defaultPlacesNextToEachOther = [];
+      defaultPlacesNextToEachOther = [
+        { id: freePlaces[i].id, cords: freePlaces[i].cords },
+      ];
     }
   }
   return defaultPlacesNextToEachOther;

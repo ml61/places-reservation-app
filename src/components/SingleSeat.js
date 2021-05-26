@@ -5,15 +5,17 @@ import {
   deletePlaceFromReservation,
 } from "../app/actions";
 
-function SingleSeat({ selectedPlaces, id, reserved, doesExist }) {
-  const isCurrentSeatSelected = selectedPlaces.includes(id);
+function SingleSeat({ selectedPlaces, id, reserved, doesExist, cords }) {
+  const isCurrentSeatSelected = selectedPlaces
+    .map((seat) => seat.id)
+    .includes(id);
   const dispatch = useDispatch();
 
   const addToSelected = () => {
-    dispatch(addPlaceToReservation(id));
+    dispatch(addPlaceToReservation({ id, cords }));
   };
   const deleteFromSelected = () => {
-    dispatch(deletePlaceFromReservation(id));
+    dispatch(deletePlaceFromReservation({ id, cords }));
   };
 
   const onPlaceClick = () => {

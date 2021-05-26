@@ -11,7 +11,7 @@ import {
 
 import {
   makeNormalizedHallScheme,
-  areThereAnyFreePlaces,
+  isHallFull,
 } from "../../features/helperFunctions";
 
 import axios from "axios";
@@ -25,23 +25,19 @@ export const getAllSeats = () => async (dispatch) => {
       type: NORMALIZED_HALL_SCHEME,
       payload: makeNormalizedHallScheme(data),
     });
-    dispatch({ type: IS_HALL_FULL, payload: areThereAnyFreePlaces(data) });
+    dispatch({ type: IS_HALL_FULL, payload: isHallFull(data) });
   } catch (err) {
     console.log(err);
   }
-};
-
-export const formSubmitAction = (formState) => {
-  return { type: SUBMIT_FORM, payload: formState };
 };
 
 export const setPlacesToReservation = (selectedPlaces) => {
   return { type: SET_PLACES_TO_RESERVATION, payload: selectedPlaces };
 };
 
-export const addPlaceToReservation = (id) => {
-  return { type: ADD_PLACE_TO_RESERVATION, payload: id };
+export const addPlaceToReservation = (seat) => {
+  return { type: ADD_PLACE_TO_RESERVATION, payload: seat };
 };
-export const deletePlaceFromReservation = (id) => {
-  return { type: DELETE_PLACE_FROM_RESERVATION, payload: id };
+export const deletePlaceFromReservation = (seat) => {
+  return { type: DELETE_PLACE_FROM_RESERVATION, payload: seat };
 };

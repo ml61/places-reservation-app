@@ -7,9 +7,9 @@ import rootReducer from "./reducers";
 // convert currentCity, myCities and myNotes to string and store in localStorage
 function saveToLocalStorage(state) {
   try {
-    const { allSeats, selectedPlaces, normalizedScheme } = state;
-    const formattedState = { allSeats, selectedPlaces, normalizedScheme };
-    const serialisedState = JSON.stringify(formattedState);
+    // const { allSeats, selectedPlaces, normalizedScheme } = state;
+    // const formattedState = { allSeats, selectedPlaces, normalizedScheme };
+    const serialisedState = JSON.stringify(state);
     localStorage.setItem("persistantState", serialisedState);
   } catch (e) {
     console.warn(e);

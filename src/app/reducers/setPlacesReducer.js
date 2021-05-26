@@ -11,7 +11,7 @@ export const setPlacesReducer = (state = null, action) => {
     case ADD_PLACE_TO_RESERVATION:
       return [...state, action.payload];
     case DELETE_PLACE_FROM_RESERVATION:
-      return state.filter((seatId) => seatId !== action.payload);
+      return state.filter((seat) => seat.id !== action.payload.id);
     default:
       return state;
   }

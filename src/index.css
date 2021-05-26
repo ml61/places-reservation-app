@@ -22,6 +22,7 @@ code {
 
 .seat {
   max-width: 2.5rem;
+  min-width: 2.5rem;
   height: 2.5rem;
   border: 1px solid black;
   cursor: pointer;
@@ -38,4 +39,13 @@ code {
 .not-exist {
   opacity: 0;
   cursor: default;
+}
+
+.hall-full {
+  font-size: 5rem;
+  min-height: 100vh;
+}
+
+.disabled-link {
+  pointer-events: none;
 }

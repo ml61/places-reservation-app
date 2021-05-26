@@ -1,24 +1,45 @@
 import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-
-import { formSubmitAction } from "../app/actions";
+import { setPlacesToReservation } from "../app/actions";
+import { ARE_THERE_ENOUGH_PLACES } from "../app/types";
+import {
+  setAnyPlaces,
+  setPlacesNextToEachOther,
+} from "../features/helperFunctions";
 
 function StartForm() {
-  const placesQuantity = useRef(null);
+  const reservationPlacesQuantity = useRef(null);
   const isPlacesNextToOneAnother = useRef(null);
+  const allSeats = useSelector((state) => state.allSeats);
 
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const setDefaultPlaces = () => {
+    let selectedPlaces;
+    if (isPlacesNextToOneAnother.current.checked) {
+      selectedPlaces = setPlacesNextToEachOther(
+        allSeats,
+        reservationPlacesQuantity.current.value * 1
+      );
+      dispatch(setPlacesToReservation(selectedPlaces));
+    }
+    if (!isPlacesNextToOneAnother.current.checked) {
+      selectedPlaces = setAnyPlaces(
+        allSeats,
+        reservationPlacesQuantity.current.value * 1
+      );
+      dispatch(setPlacesToReservation(selectedPlaces));
+    }
+    selectedPlaces.length < reservationPlacesQuantity.current.value * 1
+      ? dispatch({ type: ARE_THERE_ENOUGH_PLACES, payload: false })
+      : dispatch({ type: ARE_THERE_ENOUGH_PLACES, payload: true });
+  };
+
   const onFormSubmit = (e) => {
     e.preventDefault();
-    dispatch(
-      formSubmitAction({
-        reservationPlacesQuantity: placesQuantity.current.value * 1,
-        isPlacesNextToOneAnother: isPlacesNextToOneAnother.current.checked,
-      })
-    );
+    setDefaultPlaces();
     history.push("/reservation-scheme");
   };
 
@@ -34,7 +55,7 @@ function StartForm() {
             name="points"
             step="1"
             min="1"
-            ref={placesQuantity}
+            ref={reservationPlacesQuantity}
             className="form-control"
             id="inputPlacesQuantity"
             required
