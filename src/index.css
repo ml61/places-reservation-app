@@ -21,8 +21,21 @@ code {
 }
 
 .seat {
-  max-width: 2rem;
-  height: 2rem;
+  max-width: 2.5rem;
+  height: 2.5rem;
   border: 1px solid black;
   cursor: pointer;
+}
+
+.reserved {
+  background-color: black;
+  cursor: no-drop;
+}
+.selected {
+  background-color: orange;
+}
+
+.not-exist {
+  opacity: 0;
+  cursor: default;
 }

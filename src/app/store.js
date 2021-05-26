@@ -7,9 +7,9 @@ import rootReducer from "./reducers";
 // convert currentCity, myCities and myNotes to string and store in localStorage
 function saveToLocalStorage(state) {
   try {
-    // const { formState } = state;
-    // const formattedState = { formState };
-    const serialisedState = JSON.stringify(state);
+    const { allSeats, selectedPlaces, normalizedScheme } = state;
+    const formattedState = { allSeats, selectedPlaces, normalizedScheme };
+    const serialisedState = JSON.stringify(formattedState);
     localStorage.setItem("persistantState", serialisedState);
   } catch (e) {
     console.warn(e);
@@ -22,6 +22,7 @@ function loadFromLocalStorage() {
   try {
     const serialisedState = localStorage.getItem("persistantState");
     if (serialisedState === null) return undefined;
+    console.log("loading from local storage", JSON.parse(serialisedState));
     return JSON.parse(serialisedState);
   } catch (e) {
     console.warn(e);

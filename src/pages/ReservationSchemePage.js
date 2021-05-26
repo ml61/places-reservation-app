@@ -7,9 +7,10 @@ import {
   setAnyPlaces,
   setPlacesNextToEachOther,
 } from "../features/helperFunctions";
+import HallScheme from "../components/HallScheme";
 
 function ReservationSchemePage() {
-  const [isHallFull, setIsHallFull] = useState(false);
+  const { isHallFull } = useSelector((state) => state.interface);
   const [isPlacesEnough, setIsPlacesEnough] = useState(true);
   const { reservationPlacesQuantity, isPlacesNextToOneAnother } = useSelector(
     (state) => state.formState
@@ -20,6 +21,7 @@ function ReservationSchemePage() {
   const dispatch = useDispatch();
 
   const setDefaultPlaces = () => {
+    if (selectedPlaces) return;
     isPlacesNextToOneAnother
       ? dispatch(
           setPlacesToReservation(
@@ -34,9 +36,6 @@ function ReservationSchemePage() {
   };
 
   useEffect(() => {
-    areThereAnyFreePlaces(allSeats)
-      ? setIsHallFull(false)
-      : setIsHallFull(true);
     if (!isHallFull) setDefaultPlaces();
 
     if (selectedPlaces.length < reservationPlacesQuantity)
@@ -44,7 +43,7 @@ function ReservationSchemePage() {
     const timerId = setTimeout(() => {
       setIsPlacesEnough(true);
     }, 5000);
-
+    console.log(selectedPlaces);
     return () => clearTimeout(timerId);
   }, []);
 
@@ -57,25 +56,10 @@ function ReservationSchemePage() {
     //   <div>{reservationPlacesQuantity}</div>
     //   <div>{isPlacesNextToOneAnother ? "nextTo" : "random"}</div>
     // </>
-    <div class="container">
-      <div class="row">
-        <div class="col seat"></div>
-        <div class="col-sm">One</div>
-        <div class="col-sm">One</div>
-        <div class="col-sm">One</div>
-        <div class="col-sm">One</div>
-        <div class="col-sm">One</div>
-        <div class="col-sm">One</div>
-        <div class="col-sm">One</div>
-        <div class="col-sm">One</div>
-        <div class="col-sm">One</div>
-        <div class="col-sm">One</div>
-        <div class="col-sm">One</div>
-        <div class="col-sm">One</div>
-        <div class="col-sm">One</div>
-        <div class="col-sm">One</div>
-      </div>
-    </div>
+    <HallScheme
+      normalizedScheme={normalizedScheme}
+      selectedPlaces={selectedPlaces}
+    />
   );
 }
 
