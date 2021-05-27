@@ -31,7 +31,7 @@ Example of db-test.json (I added a few seats, everything was generated correctly
 Example for the situation, if the hall is already full. (alert at the top of the page):
 ![image](https://user-images.githubusercontent.com/74111728/119878285-3d207100-bf2a-11eb-99d9-cf5830b8f541.png)
 
-Example for the situation with not enough amount of free seats (6 seats next to each other is impossible for this hall scheme, the alert will be shown to user at the top of the page, which will close automatically after 5sec.):
+Example for the situation with not enough amount of free seats (6 seats next to each other is impossible for this hall scheme, the alert will be shown to user at the top of the page, which will close automatically after 5sec.). User is able to manually choose seats:
 ![image](https://user-images.githubusercontent.com/74111728/119878484-7527b400-bf2a-11eb-9ffc-714b39f376ae.png)
 
 Rzut LocalStorage:
