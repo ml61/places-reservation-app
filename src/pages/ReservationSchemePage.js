@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ARE_THERE_ENOUGH_PLACES } from "../app/types";
 
 import HallScheme from "../components/HallScheme";
-import HallIsFull from "../components/HallIsFull";
+import HallIsFullAlert from "../components/HallIsFullAlert";
+import NotEnoughPlacesAlert from "../components/NotEnoughPlacesAlert";
 
 function ReservationSchemePage() {
   const { isHallFull, enoughFreePlaces } = useSelector(
@@ -22,20 +23,13 @@ function ReservationSchemePage() {
     return () => clearTimeout(timerId);
   }, []);
 
-  if (isHallFull) return <HallIsFull />;
-
   return (
     <>
-      {!enoughFreePlaces && (
-        <div
-          class="alert alert-danger d-flex justify-content-center"
-          role="alert"
-        >
-          Unfortunately, we cannot find places due to your requirments. Please
-          try to select the seats manually.
-        </div>
+      {isHallFull ? (
+        <HallIsFullAlert />
+      ) : (
+        !enoughFreePlaces && <NotEnoughPlacesAlert />
       )}
-
       <HallScheme
         normalizedScheme={normalizedScheme}
         selectedPlaces={selectedPlaces}

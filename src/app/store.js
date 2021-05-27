@@ -22,7 +22,6 @@ function loadFromLocalStorage() {
   try {
     const serialisedState = localStorage.getItem("persistantState");
     if (serialisedState === null) return undefined;
-    console.log("loading from local storage", JSON.parse(serialisedState));
     return JSON.parse(serialisedState);
   } catch (e) {
     console.warn(e);

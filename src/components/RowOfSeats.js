@@ -7,7 +7,7 @@ function RowOfSeats({ row, selectedPlaces }) {
   };
 
   return (
-    <div class="row mb-2">
+    <div className="row mb-2 flex-nowrap">
       {row.map((seat) => (
         <SingleSeat
           key={"" + seat.cords.x + seat.cords.y}

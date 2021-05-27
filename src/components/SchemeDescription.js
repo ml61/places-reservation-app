@@ -3,7 +3,7 @@ import ReservationButton from "./ReservationButton";
 
 function SchemeDescription() {
   return (
-    <div className="container d-flex justify-content-around align-items-center mt-5">
+    <div className="container d-flex justify-content-around align-items-center mt-5 mb-5">
       <div className="d-flex align-items-center">
         <div className="seat mx-1 reserved"></div>
         <div>Miejsca zarezerwowane</div>

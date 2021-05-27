@@ -1,5 +1,5 @@
 export const isHallFull = (allSeats) => {
-  return allSeats.filter((seat) => !seat.reserved) ? false : true;
+  return allSeats.filter((seat) => !seat.reserved).length > 0 ? false : true;
 };
 export const setAnyPlaces = (allSeats, reservationPlacesQuantity) => {
   return allSeats
